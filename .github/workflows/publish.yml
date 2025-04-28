@@ -18,7 +18,7 @@ jobs:
       contents: read
       packages: write
     env:
-      IMAGE_NAME: tayfur-backend
+      IMAGE_NAME: qolum-backend
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GITHUB_REPO_OWNER: ${{ github.repository_owner }}
       IMAGE_TAG: ${{ github.sha }}
@@ -63,11 +63,11 @@ jobs:
           docker build -t ghcr.io/${{ github.actor }}/${IMAGE_NAME}:$TAG .
           docker push ghcr.io/${{ github.actor }}/${IMAGE_NAME}:$TAG
 
-#      - name: Setup SSH
-#        run: |
-#          mkdir -p ~/.ssh
-#          echo "$PRIVATE_KEY" > ~/.ssh/id_rsa
-#          chmod 600 ~/.ssh/id_rsa
+      #      - name: Setup SSH
+      #        run: |
+      #          mkdir -p ~/.ssh
+      #          echo "$PRIVATE_KEY" > ~/.ssh/id_rsa
+      #          chmod 600 ~/.ssh/id_rsa
 
       - name: Transfer Compose File
         run: |
@@ -75,8 +75,8 @@ jobs:
 
       - name: Debug Environment Variables
         run: |
-            echo "GITHUB_REPO_OWNER: ${GITHUB_REPO_OWNER}"
-            echo "IMAGE_TAG: ${IMAGE_TAG}"
+          echo "GITHUB_REPO_OWNER: ${GITHUB_REPO_OWNER}"
+          echo "IMAGE_TAG: ${IMAGE_TAG}"
 
       - name: Deploy via SSH
         run: |
