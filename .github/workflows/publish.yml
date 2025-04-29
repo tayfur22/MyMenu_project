@@ -81,13 +81,13 @@ jobs:
       - name: Deploy via SSH
         run: |
           ssh -i $HOME/.ssh/private_key -p $SERVER_PORT -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_HOST <<EOF
-            cd ~/workspace/backend           
+            cd ~/workspace/backend/tayfur/          
             export GITHUB_REPO_OWNER=${GITHUB_REPO_OWNER}
             export TAG=${TAG}
             echo "${GITHUB_TOKEN}" | docker login ghcr.io -u ${GITHUB_REPO_OWNER} --password-stdin
             envsubst < docker-compose.$ENV.yml > docker-compose.substituted.yml
             mv docker-compose.substituted.yml docker-compose.$ENV.yml
-            docker compose -f docker-compose.$TAG.yml pull
-            docker compose -f docker-compose.$ENV.yml down
-            docker compose -f docker-compose.$ENV.yml up -d
+            docker-compose -f docker-compose.$TAG.yml pull
+            docker-compose -f docker-compose.$ENV.yml down
+            docker-compose -f docker-compose.$ENV.yml up -d
           EOF
